@@ -13,21 +13,36 @@ export default function Layout({ children, title = 'TODO App' }: LayoutProps) {
         <title>{title}</title>
         <meta name="description" content="Aplicación TODO con Next.js" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-gray-100">
-        {/* Header minimalista */}
-        <header className="border-b border-gray-200/50 bg-white/70 backdrop-blur-sm sticky top-0 z-10">
-          <div className="max-w-6xl mx-auto px-6 py-4">
-            <h1 className="text-2xl font-light text-gray-900 tracking-tight">
-              TODO
-            </h1>
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
+        {/* Header ultra minimalista */}
+        <header className="border-b border-gray-100 bg-white/60 backdrop-blur-md sticky top-0 z-50">
+          <div className="max-w-7xl mx-auto px-6 py-6">
+            <div className="flex items-center justify-between">
+              <h1 className="text-2xl font-extralight text-gray-900 tracking-wider">
+                TODO
+              </h1>
+              <div className="w-2 h-2 bg-gray-900 rounded-full"></div>
+            </div>
           </div>
         </header>
         
-        {/* Main content */}
-        <main className="max-w-6xl mx-auto px-6 py-8">
+        {/* Main content con mejor spacing */}
+        <main className="max-w-7xl mx-auto px-6 py-12">
           {children}
         </main>
+
+        {/* Footer minimalista */}
+        <footer className="border-t border-gray-100 bg-white/40 backdrop-blur-sm mt-20">
+          <div className="max-w-7xl mx-auto px-6 py-8">
+            <div className="text-center">
+              <p className="text-xs text-gray-400 tracking-wide">
+                Hecho con ❤️ para organizarte mejor
+              </p>
+            </div>
+          </div>
+        </footer>
       </div>
     </>
   );

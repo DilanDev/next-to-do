@@ -23,16 +23,19 @@ export default function TareaForm({ onSubmit, loading = false }: TareaFormProps)
   };
 
   return (
-    <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 p-8 shadow-sm hover:shadow-md transition-all duration-300">
-      <div className="mb-6">
-        <h2 className="text-xl font-light text-gray-900 mb-1">Nueva tarea</h2>
-        <p className="text-sm text-gray-500">Organiza tu día</p>
+    <div className="bg-white/70 backdrop-blur-md rounded-3xl border border-gray-100 p-8 shadow-sm hover:shadow-lg transition-all duration-500 hover:bg-white/80">
+      <div className="mb-8">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-1.5 h-8 bg-gradient-to-b from-blue-500 to-purple-500 rounded-full"></div>
+          <h2 className="text-xl font-extralight text-gray-900">Nueva tarea</h2>
+        </div>
+        <p className="text-sm text-gray-500 ml-6">Organiza tu día de manera eficiente</p>
       </div>
       
-      <form onSubmit={handleSubmit} className="space-y-6">
+      <form onSubmit={handleSubmit} className="space-y-8">
         {/* Campo Título */}
-        <div className="space-y-2">
-          <label htmlFor="nombre" className="text-sm font-medium text-gray-700 block">
+        <div className="space-y-3">
+          <label htmlFor="nombre" className="text-xs font-medium text-gray-600 block uppercase tracking-wider">
             Título
           </label>
           <input
@@ -42,53 +45,65 @@ export default function TareaForm({ onSubmit, loading = false }: TareaFormProps)
             value={formData.nombre}
             onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
             placeholder="¿Qué necesitas hacer?"
-            className="w-full px-4 py-3 bg-gray-50/50 border-0 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-gray-900 placeholder-gray-400"
+            className="w-full px-5 py-4 bg-gray-50/50 border-0 rounded-2xl focus:bg-white focus:ring-2 focus:ring-blue-500/10 focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400 text-lg font-light"
           />
         </div>
 
         {/* Campo Descripción */}
-        <div className="space-y-2">
-          <label htmlFor="descripcion" className="text-sm font-medium text-gray-700 block">
+        <div className="space-y-3">
+          <label htmlFor="descripcion" className="text-xs font-medium text-gray-600 block uppercase tracking-wider">
             Descripción
           </label>
           <textarea
             id="descripcion"
             required
-            rows={3}
+            rows={4}
             value={formData.descripcion}
             onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
-            placeholder="Añade más detalles..."
-            className="w-full px-4 py-3 bg-gray-50/50 border-0 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 resize-none"
+            placeholder="Añade más detalles sobre tu tarea..."
+            className="w-full px-5 py-4 bg-gray-50/50 border-0 rounded-2xl focus:bg-white focus:ring-2 focus:ring-blue-500/10 focus:outline-none transition-all duration-300 text-gray-900 placeholder-gray-400 resize-none leading-relaxed"
           />
         </div>
 
         {/* Campo Fecha */}
-        <div className="space-y-2">
-          <label htmlFor="fechaFinal" className="text-sm font-medium text-gray-700 block">
+        <div className="space-y-3">
+          <label htmlFor="fechaFinal" className="text-xs font-medium text-gray-600 block uppercase tracking-wider">
             Fecha límite
           </label>
-          <input
-            type="date"
-            id="fechaFinal"
-            value={formData.FechaFinal}
-            onChange={(e) => setFormData({ ...formData, FechaFinal: e.target.value })}
-            className="w-full px-4 py-3 bg-gray-50/50 border-0 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-gray-700"
-          />
+          <div className="relative">
+            <input
+              type="date"
+              id="fechaFinal"
+              value={formData.FechaFinal}
+              onChange={(e) => setFormData({ ...formData, FechaFinal: e.target.value })}
+              className="w-full px-5 py-4 bg-gray-50/50 border-0 rounded-2xl focus:bg-white focus:ring-2 focus:ring-blue-500/10 focus:outline-none transition-all duration-300 text-gray-700"
+            />
+            <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+              <svg className="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
+              </svg>
+            </div>
+          </div>
         </div>
 
         {/* Botón Submit */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
+          className="w-full bg-gradient-to-r from-gray-900 to-gray-800 hover:from-gray-800 hover:to-gray-700 text-white font-medium py-4 px-6 rounded-2xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-3 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
         >
           {loading ? (
-            <div className="flex items-center space-x-2">
-              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-              <span>Creando...</span>
+            <div className="flex items-center space-x-3">
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              <span>Creando tarea...</span>
             </div>
           ) : (
-            <span>Crear tarea</span>
+            <>
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+              </svg>
+              <span>Crear tarea</span>
+            </>
           )}
         </button>
       </form>
