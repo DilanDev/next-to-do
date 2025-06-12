@@ -12,7 +12,7 @@ export const api = {
 obtenerTareaPorId: async (id: string): Promise<Tarea> => {
   const response = await fetch(`${BASE_URL}Tareas/ObtenerTareaPorId/${id}`);
   if (!response.ok) throw new Error('Error al obtener tarea');
-  return await response.json(); // ✅ si tu backend no usa { data: tarea }
+  return await response.json(); 
 },
 
   crearTarea: async (tarea: CrearTarea): Promise<Tarea> => {

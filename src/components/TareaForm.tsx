@@ -33,7 +33,6 @@ export default function TareaForm({ onSubmit, loading = false }: TareaFormProps)
       </div>
       
       <form onSubmit={handleSubmit} className="space-y-8">
-        {/* Campo Título */}
         <div className="space-y-3">
           <label htmlFor="nombre" className="text-xs font-medium text-gray-600 block uppercase tracking-wider">
             Título
@@ -49,7 +48,6 @@ export default function TareaForm({ onSubmit, loading = false }: TareaFormProps)
           />
         </div>
 
-        {/* Campo Descripción */}
         <div className="space-y-3">
           <label htmlFor="descripcion" className="text-xs font-medium text-gray-600 block uppercase tracking-wider">
             Descripción
@@ -65,7 +63,6 @@ export default function TareaForm({ onSubmit, loading = false }: TareaFormProps)
           />
         </div>
 
-        {/* Campo Fecha */}
         <div className="space-y-3">
           <label htmlFor="fechaFinal" className="text-xs font-medium text-gray-600 block uppercase tracking-wider">
             Fecha límite
@@ -86,7 +83,6 @@ export default function TareaForm({ onSubmit, loading = false }: TareaFormProps)
           </div>
         </div>
 
-        {/* Botón Submit */}
         <button
           type="submit"
           disabled={loading}

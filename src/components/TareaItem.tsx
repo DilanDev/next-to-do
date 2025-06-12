@@ -21,7 +21,6 @@ export default function TareaItem({ tarea, onDelete, onToggle }: TareaItemProps)
     }`}>
       <div className="p-6">
         <div className="flex items-start gap-4">
-          {/* Checkbox personalizado */}
           <button
             onClick={() => onToggle(tarea.id.toString(), !tarea.completado)}
             disabled={tarea.completado}
@@ -38,7 +37,6 @@ export default function TareaItem({ tarea, onDelete, onToggle }: TareaItemProps)
             )}
           </button>
 
-          {/* Contenido principal */}
           <div className="flex-1 min-w-0">
             <h3 className={`font-medium text-lg mb-2 transition-all duration-200 ${
               tarea.completado 
@@ -54,7 +52,6 @@ export default function TareaItem({ tarea, onDelete, onToggle }: TareaItemProps)
               {tarea.descripcion}
             </p>
 
-            {/* Metadatos */}
             <div className="flex items-center gap-4 text-xs text-gray-500">
               <span className="flex items-center gap-1">
                 <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
@@ -78,7 +75,6 @@ export default function TareaItem({ tarea, onDelete, onToggle }: TareaItemProps)
             </div>
           </div>
 
-          {/* Acciones */}
           <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             <Link
               href={`/tarea/${tarea.id}`}
@@ -106,7 +102,6 @@ export default function TareaItem({ tarea, onDelete, onToggle }: TareaItemProps)
         </div>
       </div>
 
-      {/* Indicador de estado */}
       {tarea.completado && (
         <div className="absolute top-3 right-3">
           <div className="w-2 h-2 bg-green-500 rounded-full"></div>

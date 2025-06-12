@@ -90,7 +90,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
   return (
     <Layout title={`TODO App - ${tarea.nombre}`}>
       <div className="max-w-4xl mx-auto space-y-8">
-        {/* Navigation */}
         <div className="flex items-center gap-3">
           <Link
             href="/"
@@ -104,14 +103,10 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
         </div>
 
         {!editando ? (
-          /* Vista de solo lectura */
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            {/* Contenido principal */}
             <div className="lg:col-span-8">
               <div className="bg-white/80 backdrop-blur-sm rounded-3xl border border-gray-200/50 p-8 shadow-sm">
-                {/* Header con estado */}
                 <div className="flex items-start gap-6 mb-8">
-                  {/* Checkbox personalizado */}
                   <button
                     onClick={handleToggleCompletado}
                     className={`mt-2 flex-shrink-0 w-6 h-6 rounded-full border-2 transition-all duration-200 ${
@@ -136,7 +131,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                       {tarea.nombre}
                     </h1>
 
-                    {/* Estado visual */}
                     <div className="flex items-center gap-3">
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${
                         tarea.completado
@@ -154,7 +148,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                   </div>
                 </div>
 
-                {/* Descripción */}
                 <div className="mb-8">
                   <h3 className="text-sm font-medium text-gray-500 mb-3 uppercase tracking-wide">
                     Descripción
@@ -166,7 +159,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                   </p>
                 </div>
 
-                {/* Metadatos en grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
@@ -211,7 +203,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
               </div>
             </div>
 
-            {/* Sidebar con acciones */}
             <div className="lg:col-span-4">
               <div className="sticky top-24 space-y-4">
                 {!tarea.completado && (
@@ -241,7 +232,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                   </div>
                 )}
 
-                {/* Información adicional */}
                 <div className="bg-gray-50/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 p-6">
                   <h4 className="text-sm font-medium text-gray-500 mb-3 uppercase tracking-wide">
                     Detalles
@@ -263,7 +253,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
             </div>
           </div>
         ) : (
-          /* Formulario de edición */
           <div className="max-w-2xl mx-auto">
             <div className="bg-white/80 backdrop-blur-sm rounded-3xl border border-gray-200/50 p-8 shadow-sm">
               <div className="mb-8">
@@ -272,7 +261,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
               </div>
 
               <form onSubmit={handleEditar} className="space-y-6">
-                {/* Campo Título */}
                 <div className="space-y-2">
                   <label htmlFor="nombre" className="text-sm font-medium text-gray-700 block">
                     Título
@@ -287,7 +275,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                   />
                 </div>
 
-                {/* Campo Descripción */}
                 <div className="space-y-2">
                   <label htmlFor="descripcion" className="text-sm font-medium text-gray-700 block">
                     Descripción
@@ -302,7 +289,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                   />
                 </div>
 
-                {/* Campo Fecha */}
                 <div className="space-y-2">
                   <label htmlFor="fechaFinal" className="text-sm font-medium text-gray-700 block">
                     Fecha límite
@@ -316,7 +302,6 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                   />
                 </div>
 
-                {/* Botones de acción */}
                 <div className="flex gap-3 pt-4">
                   <button
                     type="button"
@@ -349,14 +334,11 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
   );
 }
 
-// SSR: Esta función se ejecuta en el servidor para cada request
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const { id } = context.params!;
 
   try {
     const tareaOriginal = await api.obtenerTareaPorId(id as string);
-
-    // Quita los campos undefined para que no fallen al serializar
     const tarea = JSON.parse(JSON.stringify(tareaOriginal));
 
     return {

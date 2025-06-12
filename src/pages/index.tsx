@@ -57,14 +57,12 @@ export default function Home({ tareasIniciales }: HomeProps) {
     }
   };
 
-  // Separar tareas por estado
   const tareasPendientes = tareas.filter(t => !t.completado);
   const tareasCompletadas = tareas.filter(t => t.completado);
 
   return (
     <Layout title="TODO App - Lista de tareas">
       <div className="space-y-8">
-        {/* Header con estadísticas */}
         <div className="text-center space-y-4">
           <div className="space-y-2">
             <h1 className="text-4xl font-light text-gray-900 tracking-tight">
@@ -75,7 +73,6 @@ export default function Home({ tareasIniciales }: HomeProps) {
             </p>
           </div>
           
-          {/* Estadísticas */}
           <div className="flex justify-center gap-8">
             <div className="text-center">
               <div className="text-2xl font-light text-blue-600">{tareasPendientes.length}</div>
@@ -92,7 +89,6 @@ export default function Home({ tareasIniciales }: HomeProps) {
           </div>
         </div>
 
-        {/* Layout tipo bento */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
           {/* Formulario - Sidebar */}
           <div className="lg:col-span-4">
@@ -101,7 +97,6 @@ export default function Home({ tareasIniciales }: HomeProps) {
             </div>
           </div>
 
-          {/* Lista de tareas - Área principal */}
           <div className="lg:col-span-8 space-y-8">
             {tareas.length === 0 ? (
               <div className="text-center py-16">
@@ -119,7 +114,6 @@ export default function Home({ tareasIniciales }: HomeProps) {
               </div>
             ) : (
               <div className="space-y-8">
-                {/* Tareas pendientes */}
                 {tareasPendientes.length > 0 && (
                   <div>
                     <div className="flex items-center gap-3 mb-6">
@@ -141,7 +135,6 @@ export default function Home({ tareasIniciales }: HomeProps) {
                   </div>
                 )}
 
-                {/* Tareas completadas */}
                 {tareasCompletadas.length > 0 && (
                   <div>
                     <div className="flex items-center gap-3 mb-6">
@@ -171,7 +164,6 @@ export default function Home({ tareasIniciales }: HomeProps) {
   );
 }
 
-// SSR: Esta función se ejecuta en el servidor
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const tareasIniciales = await api.obtenerTareas();

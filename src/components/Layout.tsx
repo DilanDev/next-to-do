@@ -16,7 +16,6 @@ export default function Layout({ children, title = 'TODO App' }: LayoutProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-        {/* Header ultra minimalista */}
         <header className="border-b border-gray-100 bg-white/60 backdrop-blur-md sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-6 py-6">
             <div className="flex items-center justify-between">
@@ -28,21 +27,9 @@ export default function Layout({ children, title = 'TODO App' }: LayoutProps) {
           </div>
         </header>
         
-        {/* Main content con mejor spacing */}
         <main className="max-w-7xl mx-auto px-6 py-12">
           {children}
         </main>
-
-        {/* Footer minimalista */}
-        <footer className="border-t border-gray-100 bg-white/40 backdrop-blur-sm mt-20">
-          <div className="max-w-7xl mx-auto px-6 py-8">
-            <div className="text-center">
-              <p className="text-xs text-gray-400 tracking-wide">
-                Hecho con ❤️ para organizarte mejor
-              </p>
-            </div>
-          </div>
-        </footer>
       </div>
     </>
   );
