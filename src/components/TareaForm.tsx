@@ -23,13 +23,17 @@ export default function TareaForm({ onSubmit, loading = false }: TareaFormProps)
   };
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white rounded-lg shadow p-6 border border-gray-200">
-      <h2 className="text-lg font-medium text-gray-900 mb-4">Crear nueva tarea</h2>
+    <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 p-8 shadow-sm hover:shadow-md transition-all duration-300">
+      <div className="mb-6">
+        <h2 className="text-xl font-light text-gray-900 mb-1">Nueva tarea</h2>
+        <p className="text-sm text-gray-500">Organiza tu día</p>
+      </div>
       
-      <div className="space-y-4">
-        <div>
-          <label htmlFor="nombre" className="block text-sm font-medium text-gray-700">
-            Título *
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Campo Título */}
+        <div className="space-y-2">
+          <label htmlFor="nombre" className="text-sm font-medium text-gray-700 block">
+            Título
           </label>
           <input
             type="text"
@@ -37,13 +41,15 @@ export default function TareaForm({ onSubmit, loading = false }: TareaFormProps)
             required
             value={formData.nombre}
             onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2 border"
+            placeholder="¿Qué necesitas hacer?"
+            className="w-full px-4 py-3 bg-gray-50/50 border-0 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-gray-900 placeholder-gray-400"
           />
         </div>
 
-        <div>
-          <label htmlFor="descripcion" className="block text-sm font-medium text-gray-700">
-            Descripción *
+        {/* Campo Descripción */}
+        <div className="space-y-2">
+          <label htmlFor="descripcion" className="text-sm font-medium text-gray-700 block">
+            Descripción
           </label>
           <textarea
             id="descripcion"
@@ -51,31 +57,41 @@ export default function TareaForm({ onSubmit, loading = false }: TareaFormProps)
             rows={3}
             value={formData.descripcion}
             onChange={(e) => setFormData({ ...formData, descripcion: e.target.value })}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2 border"
+            placeholder="Añade más detalles..."
+            className="w-full px-4 py-3 bg-gray-50/50 border-0 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-gray-900 placeholder-gray-400 resize-none"
           />
         </div>
 
-        <div>
-          <label htmlFor="fechaVencimiento" className="block text-sm font-medium text-gray-700">
-            Fecha de vencimiento (opcional)
+        {/* Campo Fecha */}
+        <div className="space-y-2">
+          <label htmlFor="fechaFinal" className="text-sm font-medium text-gray-700 block">
+            Fecha límite
           </label>
           <input
             type="date"
             id="fechaFinal"
             value={formData.FechaFinal}
             onChange={(e) => setFormData({ ...formData, FechaFinal: e.target.value })}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm px-3 py-2 border"
+            className="w-full px-4 py-3 bg-gray-50/50 border-0 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-gray-700"
           />
         </div>
 
+        {/* Botón Submit */}
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+          className="w-full bg-gray-900 hover:bg-gray-800 text-white font-medium py-3 px-6 rounded-xl transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center space-x-2"
         >
-          {loading ? 'Creando...' : 'Crear tarea'}
+          {loading ? (
+            <div className="flex items-center space-x-2">
+              <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+              <span>Creando...</span>
+            </div>
+          ) : (
+            <span>Crear tarea</span>
+          )}
         </button>
-      </div>
-    </form>
+      </form>
+    </div>
   );
 }
