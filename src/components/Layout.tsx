@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { NotificationProvider } from '../context/NotificationContext';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,7 +9,7 @@ interface LayoutProps {
 
 export default function Layout({ children, title = 'TODO App' }: LayoutProps) {
   return (
-    <>
+    <NotificationProvider>
       <Head>
         <title>{title}</title>
         <meta name="description" content="Aplicación TODO con Next.js" />
@@ -29,6 +30,6 @@ export default function Layout({ children, title = 'TODO App' }: LayoutProps) {
           {children}
         </main>
       </div>
-    </>
+    </NotificationProvider>
   );
 }

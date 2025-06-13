@@ -1,12 +1,14 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState } from 'react';
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import TareaItem from '../components/TareaItem';
 import TareaForm from '../components/TareaForm';
+import { ConfirmDialog } from '../components/ConfirmDialog';
 import { Tarea, CrearTarea } from '../types/Tarea';
 import { api } from '../utils/Api';
+import { useNotificationContext } from '../context/NotificationContext';
+import { useConfirm } from '../hooks/useConfirm';
 
 interface HomeProps {
   tareasIniciales: Tarea[];
@@ -16,29 +18,62 @@ export default function Home({ tareasIniciales }: HomeProps) {
   const [tareas, setTareas] = useState<Tarea[]>(Array.isArray(tareasIniciales) ? tareasIniciales : []);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  
+  const { showSuccess, showError, showWarning } = useNotificationContext();
+  
+  const { confirm, isOpen, options, onConfirm, onCancel } = useConfirm();
 
   const handleCrearTarea = async (nuevaTarea: CrearTarea) => {
     setLoading(true);
     try {
       const tareaCreada = await api.crearTarea(nuevaTarea);
       setTareas([tareaCreada, ...tareas]);
+      
+      showSuccess(
+        '¡Tarea creada!',
+        `La tarea "${nuevaTarea.nombre}" se ha creado correctamente.`
+      );
     } catch (error) {
       console.error('Error al crear tarea:', error);
-      alert('Error al crear la tarea');
+      
+      showError(
+        'Error al crear tarea',
+        'No se pudo crear la tarea. Por favor, inténtalo de nuevo.'
+      );
     } finally {
       setLoading(false);
     }
   };
 
   const handleEliminarTarea = async (id: string) => {
-    if (!confirm('¿Estás seguro de que quieres eliminar esta tarea?')) return;
+    const tarea = tareas.find(t => t.id === id);
+    if (!tarea) return;
+
+    const confirmed = await confirm({
+      title: 'Eliminar tarea',
+      message: `¿Estás seguro de que quieres eliminar la tarea "${tarea.nombre}"? Esta acción no se puede deshacer.`,
+      confirmText: 'Sí, eliminar',
+      cancelText: 'Cancelar',
+      type: 'danger'
+    });
+
+    if (!confirmed) return;
     
     try {
       await api.eliminarTarea(id);
       setTareas(tareas.filter(tarea => tarea.id !== id));
+      
+      showSuccess(
+        'Tarea eliminada',
+        `La tarea "${tarea.nombre}" se ha eliminado correctamente.`
+      );
     } catch (error) {
       console.error('Error al eliminar tarea:', error);
-      alert('Error al eliminar la tarea');
+      
+      showError(
+        'Error al eliminar tarea',
+        'No se pudo eliminar la tarea. Por favor, inténtalo de nuevo.'
+      );
     }
   };
 
@@ -47,13 +82,30 @@ export default function Home({ tareasIniciales }: HomeProps) {
       console.log('Tareas actuales:', tareas);
       const tarea = tareas.find(t => t.id === id);
       if (!tarea) return;
+      
       const tareaActualizada = await api.editarTarea(id, { ...tarea, completado });
       setTareas(tareas.map(t => 
         t.id === id ? { ...t, completado } : t
       ));
+
+      if (completado) {
+        showSuccess(
+          '¡Tarea completada!',
+          `Has completado la tarea "${tarea.nombre}".`
+        );
+      } else {
+        showWarning(
+          'Tarea marcada como pendiente',
+          `La tarea "${tarea.nombre}" ahora está pendiente.`
+        );
+      }
     } catch (error) {
       console.error('Error al actualizar tarea:', error);
-      alert('Error al actualizar la tarea');
+      
+      showError(
+        'Error al actualizar tarea',
+        'No se pudo actualizar el estado de la tarea.'
+      );
     }
   };
 
@@ -160,6 +212,17 @@ export default function Home({ tareasIniciales }: HomeProps) {
           </div>
         </div>
       </div>
+
+      <ConfirmDialog
+        isOpen={isOpen}
+        title={options.title}
+        message={options.message}
+        confirmText={options.confirmText}
+        cancelText={options.cancelText}
+        type={options.type}
+        onConfirm={onConfirm}
+        onCancel={onCancel}
+      />
     </Layout>
   );
 }
