@@ -18,13 +18,13 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
     nombre: tarea.nombre,
     descripcion: tarea.descripcion,
     completado: tarea.completado,
-    FechaInicio: tarea.FechaInicio,
-    FechaFinal: tarea.FechaFinal?.split('T')[0] || '',
+    fechaInicio: tarea.fechaInicio,
+    fechaFinal: tarea.fechaFinal?.split('T')[0] || '',
   });
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
-  const isOverdue = tarea.FechaFinal && new Date(tarea.FechaFinal) < new Date() && !tarea.completado;
+  const isOverdue = tarea.fechaFinal && new Date(tarea.fechaFinal) < new Date() && !tarea.completado;
 
   const handleEditar = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,8 +35,8 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
         ...tarea,
         nombre: formData.nombre,
         descripcion: formData.descripcion,
-        FechaFinal: formData.FechaFinal
-          ? new Date(formData.FechaFinal).toISOString()
+        fechaFinal: formData.fechaFinal
+          ? new Date(formData.fechaFinal).toISOString()
           : undefined,
       });
 
@@ -82,8 +82,8 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
       nombre: tarea.nombre,
       descripcion: tarea.descripcion,
       completado: tarea.completado,
-      FechaInicio: tarea.FechaInicio,
-      FechaFinal: tarea.FechaFinal?.split('T')[0] || '',
+      fechaInicio: tarea.fechaInicio,
+      fechaFinal: tarea.fechaFinal?.split('T')[0] || '',
     });
   };
 
@@ -168,7 +168,7 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                       <svg className="w-4 h-4 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clipRule="evenodd" />
                       </svg>
-                      <span>{new Date(tarea.FechaInicio).toLocaleString('es-ES', {
+                      <span>{new Date(tarea.fechaInicio).toLocaleString('es-ES', {
                         weekday: 'long',
                         year: 'numeric',
                         month: 'long',
@@ -179,7 +179,7 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                     </div>
                   </div>
 
-                  {tarea.FechaFinal && (
+                  {tarea.fechaFinal && (
                     <div className="space-y-2">
                       <h4 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
                         Fecha límite
@@ -189,7 +189,7 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                           <path fillRule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clipRule="evenodd" />
                         </svg>
                         <span className={isOverdue && !tarea.completado ? 'text-red-600 font-medium' : ''}>
-                          {new Date(tarea.FechaFinal).toLocaleDateString('es-ES', {
+                          {new Date(tarea.fechaFinal).toLocaleDateString('es-ES', {
                             weekday: 'long',
                             year: 'numeric',
                             month: 'long',
@@ -296,8 +296,8 @@ export default function TareaDetalle({ tarea: tareaInicial }: TareaDetalleProps)
                   <input
                     type="date"
                     id="fechaFinal"
-                    value={formData.FechaFinal}
-                    onChange={(e) => setFormData({ ...formData, FechaFinal: e.target.value })}
+                    value={formData.fechaFinal}
+                    onChange={(e) => setFormData({ ...formData, fechaFinal: e.target.value })}
                     className="w-full px-4 py-3 bg-gray-50/50 border-0 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:outline-none transition-all duration-200 text-gray-700"
                   />
                 </div>

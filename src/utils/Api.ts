@@ -30,11 +30,11 @@ obtenerTareaPorId: async (id: string): Promise<Tarea> => {
 editarTarea: async (id: string, tarea: Tarea): Promise<Tarea> => {
   const tareaCompleta: Tarea = {
     ...tarea,
-    FechaInicio: tarea.FechaInicio
-      ? new Date(tarea.FechaInicio).toISOString()
+    fechaInicio: tarea.fechaInicio
+      ? new Date(tarea.fechaInicio).toISOString()
       : new Date().toISOString(),
-    FechaFinal: tarea.FechaFinal
-      ? new Date(tarea.FechaFinal).toISOString()
+    fechaFinal: tarea.fechaFinal
+      ? new Date(tarea.fechaFinal).toISOString()
       : undefined,
   };
 

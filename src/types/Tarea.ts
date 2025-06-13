@@ -3,14 +3,14 @@ export interface Tarea {
   nombre: string;
   descripcion: string;
   completado: boolean;
-  FechaInicio: string;
-  FechaFinal?: string;
+  fechaInicio: string;
+  fechaFinal?: string;
 }
 
 export interface CrearTarea {
   nombre : string;
   descripcion: string;
-  FechaFinal?: string;
+  fechaFinal?: string;
 }
 
 export interface EditarTarea {
@@ -18,6 +18,6 @@ export interface EditarTarea {
   nombre: string;
   descripcion: string;
   completado: boolean;
-  FechaInicio: string;
-  FechaFinal?: string;
+  fechaInicio: string;
+  fechaFinal?: string;
 }
